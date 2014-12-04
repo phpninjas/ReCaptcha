@@ -1,0 +1,30 @@
+{
+    "minimum-stability": "dev",
+    "name": "phpninjas/recaptcha",
+    "description": "PHP Library to support Google captcha.",
+    "keywords": ["security"],
+    "homepage": "https://github.com/phpninjas/ReCAPTCHA",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "James Turner"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "suggest": {
+    },
+    "replace": {
+    },
+    "autoload": {
+        "psr-4": { "Google\\": "src/Google", "Google\\Test\\": "test/Google/Test"}
+    },
+    "extra": {
+        "branch-alias": {
+        }
+    }
+}
