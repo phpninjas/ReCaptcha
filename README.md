@@ -6,28 +6,33 @@ Installation
 
 Composer is used for installation.
 
-    curl -s https://getcomposer.org/installer | php
-    php composer.phar install
+```bash
+curl -s https://getcomposer.org/installer | php
+php composer.phar install
+```
 
 Your composer.json file should look like this:
 
-    {
-      require: {
-        "phpninjas/recaptcha": "dev-master"
-      }
-    }
+```javascript
+{
+  require: {
+    "phpninjas/recaptcha": "dev-master"
+  }
+}
+```
 
 Example
 =======
 
-    <?php
-    require_once "vendor/autoload.php"
-    
-    use Google\ReCaptcha;
-    
-    $recaptcha = new ReCaptcha($secret);
-    $resp = $recaptcha->validate($_POST['g-recaptcha-response']);
-    
-    assert($resp->isSuccess());
-    
+```php
+<?php
+require_once "vendor/autoload.php"
+
+use Google\ReCaptcha;
+
+$recaptcha = new ReCaptcha($secret);
+$resp = $recaptcha->validate($_POST['g-recaptcha-response']);
+
+assert($resp->isSuccess());
+```
     
