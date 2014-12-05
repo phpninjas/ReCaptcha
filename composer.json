@@ -3,7 +3,7 @@
     "name": "phpninjas/recaptcha",
     "description": "PHP Library to support Google captcha.",
     "keywords": ["security","recaptcha","google"],
-    "homepage": "https://github.com/phpninjas/ReCAPTCHA",
+    "homepage": "https://github.com/phpninjas/ReCaptcha",
     "license": "Apache",
     "authors": [
         {
