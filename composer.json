@@ -2,9 +2,9 @@
     "minimum-stability": "dev",
     "name": "phpninjas/recaptcha",
     "description": "PHP Library to support Google captcha.",
-    "keywords": ["security"],
+    "keywords": ["security","recaptcha","google"],
     "homepage": "https://github.com/phpninjas/ReCAPTCHA",
-    "license": "BSD",
+    "license": "Apache",
     "authors": [
         {
             "name": "James Turner"
