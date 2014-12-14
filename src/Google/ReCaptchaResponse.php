@@ -7,6 +7,12 @@ namespace Google;
  */
 final class ReCaptchaResponse
 {
+
+    const MISSING_INPUT_SECRET = "missing-input-secret";
+    const INVALID_INPUT_SECRET = "invalid-input-secret";
+    const MISSING_INPUT_RESPONSE = "missing-input-response";
+    const INVALID_INPUT_RESPONSE = "invalid-input-response";
+
     private $success;
     private $errors;
 
@@ -33,4 +39,21 @@ final class ReCaptchaResponse
     public function isFailure(){
         return !$this->isSuccess();
     }
+
+    public function isMissingInputSecret(){
+        return array_search(static::MISSING_INPUT_SECRET, $this->errors)!==false;
+    }
+
+    public function isMissingInputResponse(){
+        return array_search(static::MISSING_INPUT_RESPONSE, $this->errors)!==false;
+    }
+
+    public function isInvalidInputSecret(){
+        return array_search(static::INVALID_INPUT_SECRET, $this->errors)!==false;
+    }
+
+    public function isInvalidInputResponse(){
+        return array_search(static::INVALID_INPUT_RESPONSE, $this->errors)!==false;
+    }
+
 }

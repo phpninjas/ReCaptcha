@@ -76,15 +76,16 @@ class ReCaptcha
             throw new ReCaptchaException($e->getMessage(), $e->getCode(), $e);
         }
         // verify json decoding.
-        if (false !== ($json = json_decode($response, true))) {
+        if (null !== ($json = json_decode($response, true))) {
 
-            if ($json['success']) {
+            if(array_key_exists("success", $json) && $json['success']) {
                 return new ReCaptchaResponse(true);
+            }elseif(array_key_exists("error-codes", $json) && is_array($json['error-codes'])) {
+                return new ReCaptchaResponse(false, $json['error-codes']);
+            }else{
+                throw new MalformedResponseException($response);
             }
-            return new ReCaptchaResponse(false, $json['error-codes']);
         }
         throw new ReCaptchaException("Non-json response '$response'");
     }
 }
-
-?>
