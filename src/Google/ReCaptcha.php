@@ -82,10 +82,12 @@ class ReCaptcha
                 return new ReCaptchaResponse(true);
             }elseif(array_key_exists("error-codes", $json) && is_array($json['error-codes'])) {
                 return new ReCaptchaResponse(false, $json['error-codes']);
+            }elseif(array_key_exists("success", $json) && !$json['success']){
+                return new ReCaptchaResponse(false, []);
             }else{
                 throw new MalformedResponseException($response);
             }
         }
-        throw new ReCaptchaException("Non-json response '$response'");
+        throw new MalformedResponseException($response);
     }
 }

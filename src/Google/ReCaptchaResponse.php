@@ -40,20 +40,39 @@ final class ReCaptchaResponse
         return !$this->isSuccess();
     }
 
+    /**
+     * @return bool
+     */
     public function isMissingInputSecret(){
         return array_search(static::MISSING_INPUT_SECRET, $this->errors)!==false;
     }
 
+    /**
+     * @return bool
+     */
     public function isMissingInputResponse(){
         return array_search(static::MISSING_INPUT_RESPONSE, $this->errors)!==false;
     }
 
+    /**
+     * @return bool
+     */
     public function isInvalidInputSecret(){
         return array_search(static::INVALID_INPUT_SECRET, $this->errors)!==false;
     }
 
+    /**
+     * @return bool
+     */
     public function isInvalidInputResponse(){
         return array_search(static::INVALID_INPUT_RESPONSE, $this->errors)!==false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUnknownError(){
+        return $this->isFailure() && array_diff($this->errors, [static::INVALID_INPUT_RESPONSE, static::INVALID_INPUT_SECRET, static::MISSING_INPUT_SECRET, static::MISSING_INPUT_RESPONSE]) > 0;
     }
 
 }

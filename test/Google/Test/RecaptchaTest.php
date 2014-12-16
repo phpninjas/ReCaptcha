@@ -113,17 +113,6 @@ final class RecaptchaTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testPartialJSON(){
-
-        $this->setExpectedException("Google\ReCaptchaException");
-
-        $httpAdapter = $this->getMock("Google\HttpClientGetAdapter");
-        $httpAdapter->expects($this->once())->method('get')->will($this->returnValue(json_encode(["success"=>false])));
-
-        $recaptcha = new ReCaptcha("good secret", $httpAdapter);
-        $recaptcha->validate("any token");
-    }
-
     public function testCustomHttpClientExceptionHandling(){
 
         $httpException = new \Exception();
@@ -153,6 +142,32 @@ final class RecaptchaTest extends \PHPUnit_Framework_TestCase
 
         $recaptcha = new ReCaptcha("some secret", $httpAdapter);
         $recaptcha->validate("any token");
+    }
+
+    /**
+     * This behaviour is given off by google for some reason...
+     */
+    public function testMissingErrorCodes(){
+
+        $httpAdapter = $this->getMock("Google\HttpClientGetAdapter");
+        $httpAdapter->expects($this->once())->method('get')->will($this->returnValue(json_encode(["success"=>false])));
+
+        $recaptcha = new ReCaptcha("some secret", $httpAdapter);
+        $response = $recaptcha->validate("any token");
+
+        $this->assertThat($response->isFailure(), $this->isTrue());
+        $this->assertThat($response->isUnknownError(), $this->isTrue());
+    }
+
+    public function testUnknownErrorCodes(){
+        $httpAdapter = $this->getMock("Google\HttpClientGetAdapter");
+        $httpAdapter->expects($this->once())->method('get')->will($this->returnValue(json_encode(["success"=>false,"error-codes"=>["Something I made up"]])));
+
+        $recaptcha = new ReCaptcha("some secret", $httpAdapter);
+        $response = $recaptcha->validate("any token");
+
+        $this->assertThat($response->isFailure(), $this->isTrue());
+        $this->assertThat($response->isUnknownError(), $this->isTrue());
     }
 
 
