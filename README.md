@@ -23,7 +23,7 @@ Your composer.json file should look like this:
 ```javascript
 {
   require: {
-    "phpninjas/recaptcha": "0.3.0"
+    "phpninjas/recaptcha": "~0.3"
   }
 }
 ```
