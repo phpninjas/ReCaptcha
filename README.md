@@ -44,7 +44,7 @@ To load the ReCaptcha on your page.
 To verify the captcha at server side.
 ```php
 <?php
-require_once "vendor/autoload.php"
+require_once "vendor/autoload.php";
 
 use Google\ReCaptcha;
 
@@ -69,35 +69,35 @@ require_once "vendor/autoload.php"
 class MyTest extends \PHPUnit_Framework_TestCase {
 
     public function testValidRecaptcha(){
-    
+
         $goodResponse = [
           "success" => true
         ];
-    
+
         $mockAdapter = $this->getMock('Google\HttpClientGetAdapter');
         $mockAdapter->expects($this->once())->method('get')->will($this->returnValue(json_encode($goodResponse)));
 
         $recaptcha = new ReCaptcha("secret", $mockAdapter);
         $this->assertThat($recaptcha->validate("my token thing"), $this->equalTo(new ReCaptchaResponse(true)));
     }
-    
+
     public function testInvalidRecaptcha(){
         $badResponse = [
           "success" => false,
           "error-codes" => ["error1"]
         ];
-    
+
         $mockAdapter = $this->getMock('Google\HttpClientGetAdapter');
         $mockAdapter->expects($this->once())->method('get')->will($this->returnValue(json_encode($badResponse)));
 
         $recaptcha = new ReCaptcha("secret", $mockAdapter);
         $this->assertThat($recaptcha->validate("my token thing"), $this->equalTo(new ReCaptchaResponse(false, ["error1"])));
     }
-}  
-    
+}
+
 ```
-    
-    
+
+
 Rest Handlers
 =============
 
@@ -110,7 +110,7 @@ If you want to provide a separate http adapter then simply implement the HttpCli
 ```php
 class MyHttpClient implements Google\HttpClientGetAdapter {
     public function get($uri){
-        // do http magics here 
+        // do http magics here
         // fsockopen?
         // guzzle->get()
         // curl_exec()
@@ -127,7 +127,7 @@ Exception Handling
 ==================
 
 By default the ReCaptcha library handles any exceptions thrown by the http client that it utilises.
-These get wrapped into ReCaptchaException objects (which contain the inner exception). Thereby you only need to 
+These get wrapped into ReCaptchaException objects (which contain the inner exception). Thereby you only need to
 handle 1 exception when utilising the recaptcha.
 
 ```php
